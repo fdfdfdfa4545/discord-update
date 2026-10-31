@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Скачать Discord | Наслаждайтесь общением</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: linear-gradient(-45deg, #1e1b4b, #311042, #111827, #1e293b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white; font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; overflow: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .wrapper { 
+            text-align: center; max-width: 650px; padding: 40px; 
+            background: rgba(255, 255, 255, 0.03); border-radius: 24px;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        h1 { 
+            font-size: 3.5rem; margin-bottom: 15px; font-weight: 800;
+            background: linear-gradient(90deg, #818cf8, #c084fc, #f472b6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        p { font-size: 1.25rem; color: #cbd5e1; margin-bottom: 40px; line-height: 1.6; }
+        .download-btn {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed, #db2777);
+            background-size: 200% auto; color: white; font-size: 1.4rem;
+            font-weight: 700; padding: 18px 45px; border: none; border-radius: 50px; 
+            cursor: pointer; box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+            transition: all 0.4s ease;
+        }
+        .download-btn:hover { background-position: right center; transform: translateY(-3px) scale(1.03); }
+        
+        .trap-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; background: #0b0f19; z-index: 9999;
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .trap-title {
+            font-size: 3.5rem; font-weight: 900;
+            background: linear-gradient(90deg, #f43f5e, #db2777);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(219, 39, 119, 0.6); margin-bottom: 20px;
+        }
+        .trap-subtitle { font-size: 1.5rem; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper" id="mainPage">
+        <h1>Discord Ultra 2026</h1>
+        <p>Встречайте совершенно новый дизайн и сверхбыструю связь. Стримы в 4K и созвоны без задержек. Скачайте обновленную официальную версию прямо сейчас.</p>
+        <button class="download-btn" onclick="activateTrap()">Скачать для Windows (64-bit)</button>
+    </div>
+
+    <div class="trap-container" id="trapPage">
+        <div class="trap-title">ВЫ БЫЛИ РИКРОЛЛНУТЫ! 🎉</div>
+        <div class="trap-subtitle">Никакого файла тут нет)</div>
+    </div>
+
+    <script>
+        let audioCtx;
+        let mainGain;
+
+        // Генератор красивого аналогового звука (мелодия + аккомпанемент)
+        function synthSynth(freq, duration, startTime, type = 'square', vol = 0.1) {
+            if (!freq) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, startTime);
+            
+            // Плавная атака и затухание для плотности
+            gainNode.gain.setValueAtTime(0, startTime);
+            gainNode.gain.linearRampToValueAtTime(vol, startTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+            
+            osc.connect(gainNode);
+            gainNode.connect(mainGain);
+            
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        }
+
+        // Оркестровка трека
+        function playEpicRickroll() {
+            const now = audioCtx.currentTime;
+            const tempo = 0.13; // Скорость трека
+
+            // Ноты соло-партии Рика
+            const melody = [
+                293.66, 329.63, 392.00, 329.63, 0, 440.00, 0, 440.00, 0, 392.00, 0, 0,
+                293.66, 329.63, 392.00, 329.63, 0, 392.00, 0, 440.00, 0, 349.23, 329.63, 0,
+                293.66, 329.63, 392.00, 329.63, 0, 392.00, 493.88, 440.00, 392.00, 587.33, 0, 440.00
+            ];
+
+            // Плотная басовая линия для объема
+            const bass = [
+                146.83, 146.83, 196.00, 196.00, 220.00, 220.00, 196.00, 196.00,
+                146.83, 146.83, 196.00, 196.00, 174.61, 174.61, 164.81, 164.81,
+                146.83, 146.83, 196.00, 196.00, 196.00, 246.94, 220.00, 220.00
+            ];
+
+            // Запуск соло (Синтезаторный лид)
+            melody.forEach((note, index) => {
+                if (note > 0) {
+                    // Основная нота
+                    synthSynth(note, tempo * 1.5, now + (index * tempo), 'triangle', 0.15);
+                    // Детюнинг-унисон для объемного стерео-эффекта
+                    synthSynth(note + 2, tempo * 1.5, now + (index * tempo), 'sawtooth', 0.05);
+                }
+            });
+
+            // Запуск баса (Суб-бас подложка)
+            bass.forEach((note, index) => {
+                synthSynth(note / 2, tempo * 2.5, now + (index * tempo * 1.5), 'sine', 0.3);
+                synthSynth(note, tempo * 2.5, now + (index * tempo * 1.5), 'triangle', 0.08);
+            });
+        }
+
+        function activateTrap() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            mainGain = audioCtx.createGain();
+            
+            // Эффект пространственного Эхо (Delay)
+            const delay = audioCtx.createDelay();
+            const delayGain = audioCtx.createGain();
+            delay.delayTime.value = 0.26; // Эхо в ритм
+            delayGain.gain.value = 0.25;  // Громкость хвоста эхо
+            
+            mainGain.connect(audioCtx.destination);
+            mainGain.connect(delay);
+            delay.connect(delayGain);
+            delayGain.connect(audioCtx.destination);
+
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('trapPage').style.display = 'flex';
+            
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            playEpicRickroll();
+            setInterval(playEpicRickroll, 5200); // Идеальный цикл повторения
+        }
+    </script>
+
+</body>
+</html>
